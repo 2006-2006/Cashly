@@ -11,7 +11,7 @@ const authenticateUser = async () => {
     try {
         // Try to login first
         const loginRes = await axios.post(`${API_URL}/users/login`, {
-            email: 'test@cashpulse.com',
+            email: 'test@cashly.com',
             password: 'test123456'
         });
         return loginRes.data.token;
@@ -20,7 +20,7 @@ const authenticateUser = async () => {
         try {
             const registerRes = await axios.post(`${API_URL}/users`, {
                 name: 'Test User',
-                email: 'test@cashpulse.com',
+                email: 'test@cashly.com',
                 password: 'test123456'
             });
             return registerRes.data.token;
@@ -55,7 +55,7 @@ const uploadFile = async (endpoint, filePath, token) => {
 };
 
 const main = async () => {
-    console.log('=== CashPulse Auto-Upload Test Data ===\n');
+    console.log('=== Cashly Auto-Upload Test Data ===\n');
 
     // Step 1: Authenticate
     console.log('Step 1: Authenticating...');
@@ -110,8 +110,8 @@ const main = async () => {
     if (successCount === files.length) {
         console.log('\n🎉 All test data uploaded successfully!');
         console.log('\nYou can now:');
-        console.log('1. Login to CashPulse with:');
-        console.log('   Email: test@cashpulse.com');
+        console.log('1. Login to Cashly with:');
+        console.log('   Email: test@cashly.com');
         console.log('   Password: test123456');
         console.log('2. View the dashboard with real data');
         console.log('3. Check Income, Expenses pages for uploaded records');

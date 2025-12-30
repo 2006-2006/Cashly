@@ -56,7 +56,7 @@ class EnterpriseService {
             mode: 'Standard', // or 'CA-Firm'
             primaryColor: '#2563eb',
             logo: null,
-            brandName: 'CashPulse'
+            brandName: 'Cashly'
         };
     }
 }

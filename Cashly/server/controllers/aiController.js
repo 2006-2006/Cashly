@@ -1,11 +1,11 @@
-const CashPulseAgent = require('../agent/agent');
+const CashlyAgent = require('../agent/agent');
 const supabase = require('../config/supabase');
 const { checkBusinessAccess } = require('../utils/accessControl');
 // const IntelligenceService = require('../services/IntelligenceService'); // Stubbed in tools, ignore here if not critical or stub
 // const IntegrationService = require('../services/IntegrationService');
 
 // Create agent instance
-const agent = new CashPulseAgent();
+const agent = new CashlyAgent();
 
 // Generate MSME-friendly insights from forecast data
 const generateInsights = (forecastData, sales, expenses, receivables) => {
@@ -116,7 +116,7 @@ const askQuestion = async (req, res) => {
         if (businessId && req.user) await checkBusinessAccess(req.user, businessId, db);
 
         // Create fresh agent instance for this request
-        const agent = new CashPulseAgent();
+        const agent = new CashlyAgent();
 
         // Delegate to advance reasoning agent
         const result = await agent.run(query, {
