@@ -11,8 +11,8 @@ const authenticateUser = async () => {
     try {
         // Try to login first
         const loginRes = await axios.post(`${API_URL}/users/login`, {
-            email: 'test@cashly.com',
-            password: 'test123456'
+            email: process.env.TEST_USER_EMAIL || 'user@example.com',
+            password: process.env.TEST_USER_PASSWORD || 'password123'
         });
         return loginRes.data.token;
     } catch (error) {
@@ -20,8 +20,8 @@ const authenticateUser = async () => {
         try {
             const registerRes = await axios.post(`${API_URL}/users`, {
                 name: 'Test User',
-                email: 'test@cashly.com',
-                password: 'test123456'
+                email: process.env.TEST_USER_EMAIL || 'user@example.com',
+                password: process.env.TEST_USER_PASSWORD || 'password123'
             });
             return registerRes.data.token;
         } catch (regError) {
@@ -111,8 +111,8 @@ const main = async () => {
         console.log('\n🎉 All test data uploaded successfully!');
         console.log('\nYou can now:');
         console.log('1. Login to Cashly with:');
-        console.log('   Email: test@cashly.com');
-        console.log('   Password: test123456');
+        console.log('   Email: ' + (process.env.TEST_USER_EMAIL || 'user@example.com'));
+        console.log('   Password: ' + (process.env.TEST_USER_PASSWORD || 'password123'));
         console.log('2. View the dashboard with real data');
         console.log('3. Check Income, Expenses pages for uploaded records');
         console.log('4. Run forecasts and simulations');
