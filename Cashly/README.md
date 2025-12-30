@@ -47,8 +47,8 @@ Cashly is not just a ledger—it's an **autonomous financial co-pilot**. Designe
 
 1.  **Clone & Install**:
     ```bash
-    git clone https://github.com/2006-2006/cashly-main.git
-    cd cashly-main
+    git clone https://github.com/2006-2006/Cashly.git
+    cd Cashly
     
     # Install Server Dependencies
     cd server && npm install
