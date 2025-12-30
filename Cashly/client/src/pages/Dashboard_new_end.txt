@@ -1,0 +1,14 @@
+                        <div className="p-4 border-t border-gray-100">
+                            <button onClick={() => { setShowAnomalyModal(false); navigate('/ai-analysis'); }} className="w-full py-3 bg-amber-500 text-white rounded-xl font-medium hover:bg-amber-600 transition-colors">
+                                Ask AI for More Insights
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            <ChatBot forecastData={forecast} currentCash={currentCash} />
+        </div>
+    );
+};
+
+export default Dashboard;

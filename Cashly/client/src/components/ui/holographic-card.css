@@ -1,0 +1,72 @@
+/* Holographic Card CSS */
+.holographic-card {
+    --x: 50%;
+    --y: 50%;
+    --bg-x: 50%;
+    --bg-y: 50%;
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.holo-content {
+    position: relative;
+    z-index: 2;
+    transform: translateZ(50px);
+}
+
+.holo-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at var(--bg-x) var(--bg-y),
+            rgba(255, 255, 255, 0.2) 0%,
+            transparent 50%);
+    opacity: 0.8;
+    z-index: 1;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+.holographic-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.1) 45%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.1) 55%,
+            transparent 100%);
+    background-size: 200% 200%;
+    background-position: var(--bg-x) var(--bg-y);
+    opacity: 0.5;
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.holographic-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--x) var(--y),
+            rgba(99, 102, 241, 0.4),
+            transparent 40%);
+    z-index: 0;
+    opacity: 0.5;
+}

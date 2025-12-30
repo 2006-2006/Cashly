@@ -1,0 +1,135 @@
+.business-switcher {
+    position: relative;
+}
+
+.switcher-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 200px;
+}
+
+.switcher-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.switcher-btn.add-btn {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.business-icon {
+    font-size: 1.25rem;
+}
+
+.business-name {
+    flex: 1;
+    text-align: left;
+    font-weight: 500;
+}
+
+.add-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #6366f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.switcher-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #1e1e3f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    overflow: hidden;
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.dropdown-item.active {
+    background: rgba(99, 102, 241, 0.2);
+}
+
+.item-icon {
+    font-size: 1.5rem;
+}
+
+.item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    color: #fff;
+    font-weight: 500;
+}
+
+.item-type {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+}
+
+.check-mark {
+    color: #6366f1;
+    font-weight: 600;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.5rem 0;
+}
+
+.dropdown-item.add-new {
+    color: #a5b4fc;
+}
+
+.dropdown-item.add-new .item-name {
+    color: #a5b4fc;
+}
