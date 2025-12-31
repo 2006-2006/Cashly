@@ -40,6 +40,9 @@ const addNote = async (req, res) => {
 // @desc    Get notes for a business
 // @route   GET /api/collaboration/notes
 // @access  Private
+// @desc    Get notes for a business
+// @route   GET /api/collaboration/notes
+// @access  Private
 const getNotes = async (req, res) => {
     try {
         const { businessId, targetType, targetId, targetDate } = req.query;
@@ -57,7 +60,7 @@ const getNotes = async (req, res) => {
         }
 
         const notes = await Note.find(filter)
-            .populate('user', 'name')
+            // .populate('user', 'name') // Cannot populate Supabase IDs
             .sort({ createdAt: -1 });
 
         res.status(200).json(notes);
@@ -73,17 +76,21 @@ const inviteUser = async (req, res) => {
     try {
         const { businessId, userEmail, role } = req.body;
 
-        const business = await Business.findById(businessId).populate('owner');
+        const business = await Business.findById(businessId);
 
         if (!business) {
             return res.status(404).json({ message: 'Business not found' });
         }
 
         // Check if requester is owner
-        if (business.owner._id.toString() !== req.user.id) {
+        if (business.owner !== req.user.id) {
             return res.status(403).json({ message: 'Only business owner can invite users' });
         }
 
+        // TODO: Implement invitation via email/supbase lookup
+        return res.status(501).json({ message: "Collaboration invites temporarily disabled during migration." });
+
+        /*
         // Find user by email (simplified - in production, send invite email)
         const User = require('../models/User');
         const invitedUser = await User.findOne({ email: userEmail });
@@ -118,6 +125,7 @@ const inviteUser = async (req, res) => {
         });
 
         res.status(200).json({ message: `${userEmail} added as ${role}` });
+        */
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -136,11 +144,11 @@ const updateUserRole = async (req, res) => {
             return res.status(404).json({ message: 'Business not found' });
         }
 
-        if (business.owner.toString() !== req.user.id) {
+        if (business.owner !== req.user.id) {
             return res.status(403).json({ message: 'Only owner can change roles' });
         }
 
-        const userEntry = business.users?.find(u => u.user.toString() === userId);
+        const userEntry = business.users?.find(u => u.user === userId);
         if (!userEntry) {
             return res.status(404).json({ message: 'User not found in business' });
         }
@@ -163,12 +171,12 @@ const getMembers = async (req, res) => {
 
         await checkBusinessAccess(req.user, businessId);
 
-        const business = await Business.findById(businessId)
-            .populate('owner', 'name email')
-            .populate('users.user', 'name email');
+        const business = await Business.findById(businessId);
+        // .populate('owner', 'name email')
+        // .populate('users.user', 'name email');
 
         res.status(200).json({
-            owner: business.owner,
+            owner: { id: business.owner }, // Return ID only
             members: business.users || []
         });
     } catch (error) {

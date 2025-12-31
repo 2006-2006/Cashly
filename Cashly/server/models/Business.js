@@ -11,12 +11,11 @@ const businessSchema = mongoose.Schema({
         default: 'Retail'
     },
     owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String, // Supabase UUID
         required: true
     },
     users: [{
-        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        user: { type: String }, // Supabase UUID
         role: { type: String, enum: ['Owner', 'Accountant', 'Staff', 'Viewer'], default: 'Viewer' }
     }],
     settings: {

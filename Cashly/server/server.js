@@ -13,7 +13,7 @@ const app = express();
 
 // CORS - Allow specific origins
 app.use(cors({
-    origin: '*', // ALLOW EVERYTHING - Debugging Mode
+    origin: process.env.CLIENT_URL ? [process.env.CLIENT_URL, 'http://localhost:5173', 'http://localhost:3000'] : '*',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -32,16 +32,19 @@ app.get('/', (req, res) => {
     res.json({ message: 'Cashly API is running', version: '1.0.0' });
 });
 
+// Legacy Mongo Routes - Disabled for Pure Supabase
 // app.use('/api/users', require('./routes/userRoutes'));
+// app.use('/api/businesses', require('./routes/businessRoutes'));
+// app.use('/api/recurring', require('./routes/recurringRoutes'));
+// app.use('/api/collaboration', require('./routes/collaborationRoutes'));
+
+// Active Supabase Routes
 app.use('/api/upload', require('./routes/uploadRoutes'));
 app.use('/api/forecast', require('./routes/forecastRoutes'));
 app.use('/api/ai', require('./routes/aiRoutes'));
 app.use('/api/settings', require('./routes/settingsRoutes'));
 app.use('/api/data', require('./routes/dataRoutes'));
-// app.use('/api/businesses', require('./routes/businessRoutes'));
-// app.use('/api/recurring', require('./routes/recurringRoutes'));
 app.use('/api/copilot', require('./routes/copilotRoutes'));
-// app.use('/api/collaboration', require('./routes/collaborationRoutes'));
 
 // Templates endpoint
 const { getAllTemplates, applyTemplate } = require('./utils/templates');
@@ -69,8 +72,13 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
 });
 
-const PORT = process.env.PORT || 5000;
+// Export app for Vercel
+module.exports = app;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// Only listen if run directly (not imported as a module)
+if (require.main === module) {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
